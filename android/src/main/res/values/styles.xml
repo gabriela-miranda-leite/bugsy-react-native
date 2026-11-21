@@ -1,0 +1,9 @@
+<resources>
+    <!-- BugsyOverlayActivity (DEB-83): lets the RN app underneath stay visible and keep its
+         state, since BugsyAndroidOverlay() only ever occupies a Dialog within this Activity. -->
+    <style name="BugsyOverlayActivityTheme" parent="android:Theme.Translucent.NoTitleBar">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@null</item>
+    </style>
+</resources>

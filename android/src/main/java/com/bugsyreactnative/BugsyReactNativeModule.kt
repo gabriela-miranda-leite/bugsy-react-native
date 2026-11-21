@@ -1,5 +1,6 @@
 package com.bugsyreactnative
 
+import android.content.Intent
 import com.bugsy.core.Bugsy
 import com.bugsy.core.BugsyConfig
 import com.bugsy.core.Trigger
@@ -18,8 +19,9 @@ import kotlinx.coroutines.launch
 /**
  * Translates the typed JS API (DEB-79) into calls on `object Bugsy` (com.bugsy.core, resolved via
  * Maven — DEB-80). `show`/`hide` delegate to `Bugsy`, whose `isVisible` changes are forwarded to
- * JS as `onIsVisibleChanged` (DEB-82). The overlay Activity that actually renders on `show()`
- * lands in DEB-83.
+ * JS as `onIsVisibleChanged` (DEB-82) and, when it flips to visible, start `BugsyOverlayActivity`
+ * (DEB-83) — from the same observer so the shake/floating-button/notification triggers (which call
+ * `Bugsy.show()` directly, bypassing this module's own `show()`) open the overlay too.
  */
 class BugsyReactNativeModule(reactContext: ReactApplicationContext) :
   NativeBugsySpec(reactContext) {
@@ -33,8 +35,23 @@ class BugsyReactNativeModule(reactContext: ReactApplicationContext) :
   override fun initialize() {
     super.initialize()
     isVisibleJob = moduleScope.launch {
-      Bugsy.isVisible.collect { visible -> emitOnIsVisibleChanged(visible) }
+      Bugsy.isVisible.collect { visible ->
+        emitOnIsVisibleChanged(visible)
+        if (visible) {
+          UiThreadUtil.runOnUiThread(::startOverlayActivity)
+        }
+      }
     }
+  }
+
+  private fun startOverlayActivity() {
+    val activity = reactApplicationContext.currentActivity
+    val intent = Intent(activity ?: reactApplicationContext, BugsyOverlayActivity::class.java)
+    if (activity == null) {
+      // Starting an Activity from a non-Activity Context requires its own task.
+      intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    }
+    (activity ?: reactApplicationContext).startActivity(intent)
   }
 
   override fun invalidate() {

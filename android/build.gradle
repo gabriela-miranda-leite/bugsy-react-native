@@ -12,13 +12,26 @@ ext.getExtOrDefault = { prop ->
 }
 
 
+buildscript {
+  repositories {
+    google()
+    mavenCentral()
+  }
+  dependencies {
+    // Needed to compile BugsyOverlayActivity.kt's Compose UI (DEB-83). Must match the Kotlin
+    // Gradle plugin version forced elsewhere for this project (DEB-84) — the Compose compiler
+    // plugin is version-locked to the exact Kotlin version it runs with.
+    classpath "org.jetbrains.kotlin:compose-compiler-gradle-plugin:2.4.0"
+  }
+}
+
 apply plugin: "com.android.library"
 
 if (project.extensions.findByName("kotlin") == null) {
   apply plugin: "kotlin-android"
 }
 
-
+apply plugin: "org.jetbrains.kotlin.plugin.compose"
 apply plugin: "com.facebook.react"
 
 android {
@@ -28,6 +41,10 @@ android {
 
   defaultConfig {
     minSdkVersion getExtOrDefault("minSdkVersion")
+  }
+
+  buildFeatures {
+    compose true
   }
 }
 
@@ -41,4 +58,8 @@ dependencies {
   // so a single implementation() covers both build types.
   implementation "io.github.gabriela-miranda-leite:bugsy-core-android:${bugsyNativeVersion}"
   implementation "io.github.gabriela-miranda-leite:bugsy-ui-android:${bugsyNativeVersion}"
+
+  // For BugsyOverlayActivity.kt's setContent { BugsyAndroidOverlay() } (DEB-83).
+  implementation platform("androidx.compose:compose-bom:2024.10.00")
+  implementation "androidx.activity:activity-compose:1.9.2"
 }
