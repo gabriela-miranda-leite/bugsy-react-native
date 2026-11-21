@@ -26,7 +26,6 @@ const result = multiply(3, 7);
 
 - [Development workflow](CONTRIBUTING.md#development-workflow)
 - [Sending a pull request](CONTRIBUTING.md#sending-a-pull-request)
-- [Code of conduct](CODE_OF_CONDUCT.md)
 
 ## License
 
