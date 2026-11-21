@@ -1,15 +1,28 @@
 package com.bugsyreactnative
 
 import com.facebook.react.bridge.ReactApplicationContext
+import com.facebook.react.bridge.ReadableMap
 
+/**
+ * Placeholder implementation of the generated spec (DEB-77) so the example app keeps compiling.
+ * The real translation to `object Bugsy` lands in DEB-81.
+ */
 class BugsyReactNativeModule(reactContext: ReactApplicationContext) :
-  NativeBugsyReactNativeSpec(reactContext) {
+  NativeBugsySpec(reactContext) {
 
-  override fun multiply(a: Double, b: Double): Double {
-    return a * b
-  }
+  override fun initialize(config: ReadableMap) = Unit
+
+  override fun destroy() = Unit
+
+  override fun addSensitiveHeader(name: String) = Unit
+
+  override fun removeSensitiveHeader(name: String) = Unit
+
+  override fun addSensitiveBodyField(name: String) = Unit
+
+  override fun removeSensitiveBodyField(name: String) = Unit
 
   companion object {
-    const val NAME = NativeBugsyReactNativeSpec.NAME
+    const val NAME = NativeBugsySpec.NAME
   }
 }
