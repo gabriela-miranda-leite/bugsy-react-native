@@ -31,9 +31,14 @@ android {
   }
 }
 
+// Pinned to the latest bugsy release on Maven Central; synced with the npm package version
+// per the strategy documented in DEB-94.
+ext.bugsyNativeVersion = "0.4.0"
+
 dependencies {
   implementation "com.facebook.react:react-android"
   // addBugsyInterceptor() no-ops in release builds on its own (BugsyContext.isHostDebuggable()),
   // so a single implementation() covers both build types.
-  implementation "io.github.gabriela-miranda-leite:bugsy-core:0.4.0"
+  implementation "io.github.gabriela-miranda-leite:bugsy-core-android:${bugsyNativeVersion}"
+  implementation "io.github.gabriela-miranda-leite:bugsy-ui-android:${bugsyNativeVersion}"
 }
