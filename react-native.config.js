@@ -12,9 +12,8 @@ module.exports = {
     platforms: {
       android: {
         sourceDir: './android',
-        packageImportPath:
-          'import com.bugsyreactnative.BugsyReactNativePackage;',
-        packageInstance: 'new BugsyReactNativePackage()',
+        packageImportPath: 'import com.bugsyreactnative.BugsyPackage;',
+        packageInstance: 'new BugsyPackage()',
       },
       ios: {
         podspecPath: './BugsyReactNative.podspec',
