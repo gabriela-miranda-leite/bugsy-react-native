@@ -1,5 +1,5 @@
 #import <BugsyReactNativeSpec/BugsyReactNativeSpec.h>
 
-@interface BugsyReactNative : NSObject <NativeBugsyReactNativeSpec>
+@interface BugsyReactNative : NSObject <NativeBugsySpec>
 
 @end

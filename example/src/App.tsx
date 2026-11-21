@@ -1,8 +1,5 @@
 import { useState } from 'react';
 import { Button, Text, View, StyleSheet } from 'react-native';
-import { multiply } from 'bugsy-react-native';
-
-const result = multiply(3, 7);
 
 export default function App() {
   const [status, setStatus] = useState('No request yet');
@@ -21,7 +18,6 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text>Result: {result}</Text>
       <Button title="Send fetch()" onPress={sendRequest} />
       <Text>{status}</Text>
     </View>
