@@ -72,5 +72,8 @@ lib/
 ios/generated
 android/generated
 
+# Downloaded by scripts/download-xcframework.js (DEB-85), not committed
+ios/Frameworks/
+
 # React Native Nitro Modules
 nitrogen/
