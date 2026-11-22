@@ -154,6 +154,13 @@ jobs:
         with:
           xcode-version: ${{ env.XCODE_VERSION }}
 
+      - name: Download Bugsy.xcframework
+        # `postinstall` (DEB-85) normally fetches this, but it doesn't run on a yarn-cache hit
+        # (node_modules restored from cache, `yarn install` skipped) — and `ios/Frameworks` isn't
+        # part of that cache, so pod install would silently vendor nothing without this.
+        if: env.turbo_cache_hit != 1
+        run: node scripts/download-xcframework.js
+
       - name: Install cocoapods
         if: env.turbo_cache_hit != 1
         run: |
