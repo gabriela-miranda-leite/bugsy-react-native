@@ -18,7 +18,7 @@ const path = require('node:path');
 
 // Pinned the same way android/build.gradle's `bugsyNativeVersion` is (DEB-80): a hardcoded
 // version bumped by hand for now. Unifying both into one source of truth is DEB-94's job.
-const BUGSY_NATIVE_VERSION = '0.4.0';
+const BUGSY_NATIVE_VERSION = '0.4.2';
 
 const REPO_ROOT = path.resolve(__dirname, '..');
 const FRAMEWORK_NAME = 'Bugsy.xcframework';
