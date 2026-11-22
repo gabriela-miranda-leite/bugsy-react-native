@@ -34,6 +34,8 @@ NS_ASSUME_NONNULL_END
   BugsyModule *_module;
 }
 
+RCT_EXPORT_MODULE(Bugsy)
+
 - (instancetype)init
 {
   if (self = [super init]) {
@@ -115,11 +117,6 @@ NS_ASSUME_NONNULL_END
     (const facebook::react::ObjCTurboModule::InitParams &)params
 {
   return std::make_shared<facebook::react::NativeBugsySpecJSI>(params);
-}
-
-+ (NSString *)moduleName
-{
-  return @"Bugsy";
 }
 
 @end
