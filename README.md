@@ -22,6 +22,11 @@ const result = multiply(3, 7);
 ```
 
 
+## iOS native framework
+
+`Bugsy.xcframework` is downloaded automatically on `npm install` (see
+[`docs/ios-xcframework-distribution.md`](docs/ios-xcframework-distribution.md) for how and why).
+
 ## Contributing
 
 - [Development workflow](CONTRIBUTING.md#development-workflow)

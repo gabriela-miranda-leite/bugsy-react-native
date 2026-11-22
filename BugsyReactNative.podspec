@@ -15,6 +15,10 @@ Pod::Spec.new do |s|
 
   s.source_files = "ios/**/*.{h,m,mm,swift,cpp}"
   s.private_header_files = "ios/**/*.h"
+  # Bugsy.xcframework lands here via `scripts/download-xcframework.js` (DEB-85, this package's
+  # `postinstall`), so its own headers must stay out of source_files/private_header_files above.
+  s.exclude_files = "ios/Frameworks/**/*"
+  s.vendored_frameworks = "ios/Frameworks/Bugsy.xcframework"
 
   install_modules_dependencies(s)
 end
